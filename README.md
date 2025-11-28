@@ -1,0 +1,2 @@
+# A-Data-Driven-Analysis-of-Global-Gaming-Companies-Market-Trends-Sentiment-Influence-and-Forecasting
+ Built a sentiment-enhanced forecasting framework for 50 video games by scraping 500k+ reviews, generating monthly sentiment scores, calculating a multi-factor dominance index, and applying AR/ARX models. Delivered company-level insights, trend analysis, and accuracy improvements using real user sentiment.
