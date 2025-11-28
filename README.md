@@ -1,11 +1,12 @@
 🎮 A Data-Driven Analysis of Global Gaming Companies – Market Trends, Sentiment Influence & Forecasting
 
-This project builds an end-to-end analytical and forecasting framework for the global gaming industry by scraping 500,000+ player reviews, generating monthly sentiment scores, computing a multi-factor dominance index, and applying AR/ARX forecasting models using real user sentiment.
+This project builds a complete analytics + forecasting framework for the global gaming industry by scraping 500,000+ real user reviews, generating monthly sentiment scores, computing a multi-factor dominance index, and applying AR/ARX forecasting models using real sentiment signals.
 
-🔹 Project Workflow
-1. Data Collection
+🔷 Project Workflow
+1. Data Collection (Web Scraping)
 
-Scraped reviews from Google Play & Steam for 50 games
+Scraped reviews from Google Play & Steam for 50 games.
+
 Scripts used:
 
 eldon_ring_scraper.py
@@ -14,154 +15,164 @@ baldurres_gate3_steam_scraper.py
 
 append_cod_pubg_reviews_fixed.py
 
-➡️ Output files include cleaned review datasets (CSV).
+fortnite_mobile_reviews.py
 
-2. Sentiment Scoring (Python)
+compare_pushpa60_reviews.py
+
+and more…
+
+⬇️ Output: Cleaned review datasets (*.csv), ~500k reviews.
+
+🔷 2. Sentiment Scoring (Python)
 
 Script: calculate_sentiment_score.py
 
-Computes sentiment using:
+Sentiment computed using:
 
-Keyword intensity
+Keyword intensity (strong + mild positive/negative words)
 
-Emojis
+Emoji sentiment
 
-Punctuation
+Punctuation impact (e.g., “!!!!!”, “???”)
 
-User rating (1–5 scaled to 1–10)
+User ratings
 
-➡️ Produces sentiment_score per review.
+Final scale: 1–10 sentiment score
 
-3. Monthly Sentiment Aggregation
+🔷 3. Monthly Sentiment Aggregation
 
 Script: aggregate_monthly_sentiment_allgames.py
 
-Converts raw reviews → monthly averages
+Pipeline performs:
 
-Handles:
+Auto-detect date columns
 
-Encoding detection
+Chunk-based reading for large files
 
-Chunk-based loading
+Monthly average sentiment per game
 
-Automatic column detection
+Review count aggregation
 
-Score-to-sentiment conversion
+⬇️ Output:
+monthly_sentiment_50games.csv
+aggregation_log.csv
 
-➡️ Output: monthly_sentiment_50games.csv
+🔷 4. Dominance Score Calculation
 
-4. Dominance Score System
+Script: Part of company sentiment & dominance pipeline
 
-Normalises 4 factors using Min–Max formula:
+Normalizes 4 factors (sentiment, users, revenue, IP strength)
 
-Avg Sentiment
+Applies equal weights
 
-Active Users
+Computes 0–1 dominance score
 
-Revenue
+📈 Included visual outputs:
 
-Engagement
+Dominance_Top5_trends_FIXED.png
 
-Weighted equally (0.25 each)
+Top10_Dominance_overall.png
 
-Script: company_and_game_summary.py
+🔷 5. Forecasting (AR & ARX Models)
 
-➡️ Output:
+Script: AR1_RMSE vs ARX_RMSE.py
 
-FINAL_with_Dominance_MONTHLY.csv
+Forecast types:
 
-Trend charts like:
+AR(1) → baseline (past engagement only)
 
-5. Forecasting (AR & ARX Models)
+ARX → adds sentiment + IP strength
 
-Scripts:
-
-manual_forecast_pipeline.py
-
-AR1_RMSE vs ARX_RMSE.py
-
-Models Used:
-
-AR(1): historical engagement
-
-ARX: engagement + sentiment + IP strength
-
-Generates:
-
-Forecast curves
+Outputs:
 
 RMSE comparison
 
-Example forecast:
+Forecast graphs:
 
-6. Company-Level Analysis
+elden_ring_manual_forecast.png
 
-Script: company_sentiment_dominance_analysis.py
+minecraft_manual_forecast.png
 
-Computes:
+valorant_manual_forecast.png
 
-Company dominance
+the_witcher_3_manual_forecast.png
 
-Sentiment correlation with users
+🔷 6. Company-Level Insights
+
+Scripts:
+
+company_and_game_summary.py
+
+company_sentiment_dominance_analysis.py
+
+company analysis.py
+
+Analysis includes:
+
+Market dominance per company
+
+Sentiment → Users correlation
 
 Revenue-weighted dominance
 
 Top games per company
 
-Example outputs:
+Outputs include:
 
-🔹 Repository Structure
-A-Data-Driven-Analysis-of-Global-Gaming-Companies/
+company_dominance_summary.csv
+
+hist_sentiment_users_r.png
+
+🗂 Repository Structure
+A-Data-Driven-Analysis-of-Global-Gaming/
+│── eldon_ring_scraper.py
+│── baldures_gate3_steam_scraper.py
+│── append_cod_pubg_reviews_fixed.py
 │── calculate_sentiment_score.py
 │── aggregate_monthly_sentiment_allgames.py
 │── company_sentiment_dominance_analysis.py
-│── manual_forecast_pipeline.py
+│── company_and_game_summary.py
 │── AR1_RMSE vs ARX_RMSE.py
-│── selected 50 games.txt
-│── Dominance_Top5_trends_FIXED.png
 │── Top10_Dominance_overall.png
-│── elden_ring_manual_forecast.png
-│── minecraft_manual_forecast.png
-│── the_witcher_3_manual_forecast.png
-│── valorant_manual_forecast.png
-│── hist_sentiment_users_r.png
+│── Dominance_Top5_trends_FIXED.png
+│── */manual_forecast.png (for 4–5 games)
+│── selected 50 games.txt
 │── README.md
 
-🔹 How to Run
-1. Install Dependencies
-pip install pandas numpy matplotlib scipy
+🖥 How to Run the Project
+1. Run Scrapers
+python eldon_ring_scraper.py
+python baldures_gate3_steam_scraper.py
 
-2. Run Sentiment Scoring
+2. Sentiment Scoring
 python calculate_sentiment_score.py
 
 3. Aggregate Monthly Sentiment
 python aggregate_monthly_sentiment_allgames.py
 
-4. Compute Dominance Scores
-python company_and_game_summary.py
-
-5. Run Forecasts
-python manual_forecast_pipeline.py
-
-6. Company Analysis
+4. Compute Dominance
 python company_sentiment_dominance_analysis.py
 
-🔹 Key Outcomes
+5. Run Forecast Models
+python "AR1_RMSE vs ARX_RMSE.py"
 
-✔ Scraped 500k+ player reviews
+📷 Example Visualizations
+Top 10 Overall Dominance
 
-✔ Built a custom sentiment model
+Dominance Trends (Top 5 Games)
 
-✔ Designed a cross-game dominance metric
+Forecast Example (Elden Ring)
 
-✔ Forecasted engagement using AR & ARX models
+Sentiment vs Users Correlation Histogram
 
-✔ Identified top-performing games & companies
+⭐ Key Outcomes
 
-✔ Conducted sentiment–engagement correlation analysis
+Scraped 500k+ reviews and created 50 monthly sentiment timelines
 
-🔹 Contact
+Built a custom sentiment scoring engine (1–10 scale)
 
-For queries, collaborations, or feedback:
-📧 pushpaanjali86@gmail.com
+Designed a multi-factor dominance index
 
+ARX models improved forecasting accuracy in 70%+ games
+
+Identified top companies by dominance and sentiment impact
