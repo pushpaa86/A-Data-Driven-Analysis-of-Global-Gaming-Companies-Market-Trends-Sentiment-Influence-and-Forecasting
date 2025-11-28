@@ -1,177 +1,176 @@
-# A-Data-Driven-Analysis-of-Global-Gaming-Companies-Market-Trends-Sentiment-Influence-and-Forecasting
- Built a sentiment-enhanced forecasting framework for 50 video games by scraping 500k+ reviews, generating monthly sentiment scores, calculating a multi-factor dominance index, and applying AR/ARX models. Delivered company-level insights, trend analysis, and accuracy improvements using real user sentiment.
-🎮 Sentiment-Enhanced Forecasting & Market Dominance Analysis for Video Games
+📊 A Data-Driven Analysis of Global Gaming Companies
+Market Trends, Sentiment Influence & Forecasting (50 Games Project)
 
-A Data Science Masters Project (7COM1075)
+This project develops a sentiment-enhanced forecasting system for 50 global video games by combining player reviews, engagement indicators, and a custom dominance index.
+It includes large-scale review scraping (500k+ reviews), monthly sentiment scoring, AR/ARX forecasting, trend analysis, and company-level insights.
 
-This project develops a sentiment-driven forecasting and market dominance analysis system for the video-game industry.
-Using 50 top games, this study integrates player review sentiment, engagement metrics, IP strength, and company-level performance indicators into a unified analytical framework.
+🚀 Project Overview
 
-The system combines Python-based sentiment processing, time-series forecasting models (AR & ARX), and a novel dominance scoring formula to identify:
+This repository contains the full code pipeline used to:
 
-Which games maintain strong long-term player engagement
+Scrape Google Play & Steam reviews for 50 games
 
-Which companies lead the market
+Compute cleaned sentiment scores using NLP rules, emojis & rating-adjustments
 
-Whether player sentiment improves forecasting accuracy
+Aggregate monthly sentiment (2023–2025)
 
-📂 Project Structure
-├── data/
-│   ├── reviews/                 # 10,000+ raw reviews per game
-│   ├── FINAL_with_Dominance_MONTHLY.csv
-│   ├── pushpa60_SORTED.csv      # Company mapping file
+Calculate a multi-factor market dominance index
+
+Generate manual & statistical forecasts using AR(1) and ARX (with sentiment/IP strength)
+
+Analyse company-level dominance, correlations, and long-term trends
+
+Visualize sentiment, dominance, and forecast patterns
+
+The system demonstrates how player sentiment can meaningfully influence forecasting accuracy and company performance.
+
+🧱 Repository Structure
+├── AR1_RMSE vs ARX_RMSE.py                # Comparison of forecasting accuracy
+├── Dominance_Top5_trends_FIXED.png        # Trend plot for top 5 dominant games
+├── Top10_Dominance_overall.png            # Overall dominance ranking chart
 │
-├── src/
-│   ├── sentiment_scoring.py     # Custom keyword + emoji + punctuation model
-│   ├── scrape_reviews.py        # Google Play & Steam scraping script
-│   ├── aggregate_monthly.py     # Monthly sentiment aggregation
-│   ├── dominance_model.py       # Dominance formula & normalization
-│   ├── forecasting_AR_ARX.py    # AR & ARX forecasting + RMSE evaluation
-│   ├── company_analysis.py      # Company-level dominance & correlations
+├── aggregate_monthly_sentiment_allgames.py # Monthly sentiment aggregation pipeline
+├── calculate_sentiment_score.py            # NLP-based sentiment scoring function
 │
-├── results/
-│   ├── dashboards/
-│   ├── forecasting_charts/
-│   ├── company_analysis/
+├── baldures_gate3_steam_scraper.py
+├── elden_ring_scraper.py
+├── append_cod_pubg_reviews_fixed.py        # Review scraping scripts (Play Store / Steam)
 │
+├── company_sentiment_dominance_analysis.py # Company-level dominance + correlation
+├── company_and_game_summary.py
+├── company analysis.py
+│
+├── minecraft_manual_forecast.png
+├── elden_ring_manual_forecast.png
+├── valorant_manual_forecast.png
+├── the_witcher_3_manual_forecast.png       # Forecast visualisations
+│
+├── hist_sentiment_users_r.png              # Pearson r distribution plot
+├── favourite — sentiment.py                # Misc sentiment experiment
+│
+├── selected 50 games.txt                   # Final game list
 └── README.md
 
-🧠 Key Features
-✔️ 1. Review Scraping (10,000 newest reviews per game)
+🔍 Key Features
+1. Review Scraping (500k+ reviews)
 
-Google Play Scraper (Python)
+Automated scripts for Steam & Google Play
 
-Steam Review API
+2023–2025 review filtering
 
-Unified dataset created for 50 selected games
-(See Appendix A for the full game list.)
+Saved CSV outputs per game
 
-✔️ 2. Custom Sentiment Scoring Model
+2. Custom Sentiment Scoring
 
-A hybrid NLP approach combining:
+Detects keywords, emojis, punctuation, and ratings
 
-Keyword dictionary (positive/negative, strong/mild)
+Produces a unified 1–10 sentiment scale
 
-Emoji impact
+Works even when no numeric rating exists
 
-Punctuation weighting (!, ?)
+3. Monthly Sentiment Aggregation
 
-Optional user rating adjustment
+Processes large CSVs in memory-efficient chunks
 
-Produces a 1–10 sentiment score for every review.
+Auto-detects date/text/sentiment columns
 
-✔️ 3. Monthly Sentiment Aggregation
+Outputs per-game monthly averages
 
-Reads large CSVs in chunks
+4. Dominance Scoring Model
 
-Detects date/text columns automatically
+A four-factor normalized model:
 
-Outputs per-game monthly average sentiment + review counts
+Rating
 
-✔️ 4. Dominance Score Model
+Sentiment
 
-Novel metric using 4 equally weighted factors:
+Engagement (MAU)
 
-Variable	Meaning
-R_norm	Normalized User Rating
-S_norm	Normalized Sentiment
-U_norm	Normalized User Engagement
-I_norm	Normalized IP Strength
+IP Strength
 
-Dominance = 0.25(R + S + U + I)
+Combined with equal weights into a single dominance index.
 
-✔️ 5. Forecasting Models (AR & ARX)
+5. Forecasting (AR1 & ARX Models)
 
-AR(1) → uses only past engagement
+AR(1): Pure engagement-based
 
-ARX → adds sentiment + IP strength as predictors
+ARX: Engagement + sentiment + IP strength
 
-RMSE used for model evaluation
+RMSE evaluation
 
-📌 Finding:
-Sentiment improves forecasting accuracy for many games (ARX < AR RMSE).
+Shows when sentiment improves predictions
 
-✔️ 6. Company-Level Analytics
+6. Company-Level Analysis
 
-Maps each game → parent company
+Game → Company mapping
 
-Aggregates dominance and engagement across months
+Mean dominance across months
 
-Calculates Pearson correlations
+Revenue-weighted dominance
 
-Identifies top-performing companies
+Sentiment → Engagement correlations
 
-📌 Finding:
-Some companies consistently show high sentiment + high engagement, demonstrating true market leadership.
+📈 Visual Outputs Included
 
-📊 Key Research Questions Answered
-1️⃣ Does sentiment improve forecasting accuracy?
+✔ Monthly sentiment charts
+✔ Dominance trends (Top 5 games)
+✔ Top 10 dominant games (bar chart)
+✔ AR/ARX forecast comparison
+✔ Histograms of sentiment–user correlation
 
-✔ Yes. ARX performed better (lower RMSE) for many games.
+All plots are included in the repository.
 
-2️⃣ Which companies lead the market?
+🛠️ Tech Stack
 
-✔ Based on dominance + revenue-weighted metrics, a few companies stand out consistently.
+Python 3.10+
 
-3️⃣ Which games maintain strong long-term preference?
+pandas, numpy
 
-✔ Games with high sentiment also show high engagement stability.
+matplotlib
 
-📐 Mathematical Models Used
+scipy (optional)
 
-Min–Max Normalisation
+google-play-scraper / steamdb scraping
 
-Dominance Score Formula
+regex / emoji parsing
 
-AR(1) Time-Series Model
-
-ARX Model with Exogenous Inputs
-
-Holt Linear Trend (long-term trend detection)
-
-Pearson Correlation
-
-RMSE Accuracy Metric
-
-🚀 How to Run the Project
-Install dependencies
+▶️ How to Run
+1. Install dependencies
 pip install -r requirements.txt
 
-1. Scrape reviews
-python scrape_reviews.py
+2. Scrape reviews
+python elden_ring_scraper.py
+python baldures_gate3_steam_scraper.py
 
-2. Compute sentiment
-python sentiment_scoring.py
-
-3. Aggregate monthly data
-python aggregate_monthly.py
+3. Aggregate sentiment
+python aggregate_monthly_sentiment_allgames.py
 
 4. Generate dominance scores
-python dominance_model.py
+
+(Done inside analysis scripts)
 
 5. Run forecasting
-python forecasting_AR_ARX.py
+python AR1_RMSE vs ARX_RMSE.py
 
-6. Company analysis
-python company_analysis.py
+6. Company-level evaluation
+python company_sentiment_dominance_analysis.py
 
-📦 Results & Outputs
+📚 Main Insights From the Project
 
-All outputs are available in the results/ folder:
+Sentiment improves forecasting accuracy for many games (ARX > AR1).
 
-Monthly Sentiment Dataset
+Some companies maintain strong long-term dominance driven by consistently high sentiment and user engagement.
 
-Dominance Tables
+Games with stable positive sentiment show more predictable trends.
 
-AR vs ARX Forecasting Charts
+Dominance modelling helps understand market share, player behaviour, and IP strength.
 
-Company Rankings
+📬 Contact
 
-Pearson Correlation Reports
-
-Visual Dashboards
-
-
-🤝 Contact
-
-If you found this project useful, feel free to connect on LinkedIn or GitHub!
+For questions, collaboration, or opportunities:
+Pushpanjali – Data Analyst / Machine Learning Enthusiast
+📧 Email: pushpaanjali86@gmail.com
+🌐 GitHub: https://github.com/pushpaa86
+ Linkedin: https://www.linkedin.com/in/pushpanjali-mamidakula-160083220/
+📧 Email: (add email)
+🌐 GitHub: https://github.com/pushpaa86
